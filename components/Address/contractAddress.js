@@ -1,0 +1,71 @@
+/// it's an array for a reason so each position represent the poolID of the strategy, 
+/// so if strategy is n.3 then the array position is 3, we will keep this simple 
+/// for now but will need to be expanded.
+
+//STONE CONTRACTS
+
+const GUARANTEE_CONTRACT = {
+    1: {
+        3: '0x73A83269b9bbAFC427E76Be0A2C1a1db2a26f4C2',
+        4: '0x73A83269b9bbAFC427E76Be0A2C1a1db2a26f4C2'
+    },
+    5: {
+        3: '0x794913c43e05dA70954BfDD29398CE24f20B8535',
+        4: '0x794913c43e05dA70954BfDD29398CE24f20B8535'
+    },
+    11155111:{
+        3: '0x7caDfF06639e190C320213EC1f36a798FF035aEF',
+        4: '0x7caDfF06639e190C320213EC1f36a798FF035aEF',
+    }
+}
+
+const CIVINVEST_TOKEN = {
+    1: {
+        3: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+        4: '0xdAC17F958D2ee523a2206206994597C13D831ec7'
+    },
+    5: {
+        3: '0x4d527d0b4E5Fc7cb057EbdE78f1c69FFC337125B',
+        4: '0x4d527d0b4E5Fc7cb057EbdE78f1c69FFC337125B'
+    },
+    11155111:{
+        3: '0x72797874B8CD274e52b352d418966c25585D24Eb',
+        4: '0x72797874B8CD274e52b352d418966c25585D24Eb',
+    }
+}
+
+// VAULT CONTRACT
+const VAULT_CONTRACT = {
+    1: ['0x9E0B1749f6f41fF0e463F92516fD52aA53B31628'],
+    5: ['0x4cD6A7596febDa71dD772A17921a7f791EBe0C6B'],
+    11155111:['0x451D7B420EcB7E835D87081ce8824c0f95Ec5fcE']
+}
+
+const VAULT_GETTER_CONTRACT = {
+    1: ['0xD0C5F2Ba7aDcf7fBE6960cEc38EA1DE3Ebbc22c3'],
+    5: ['0x80Ce46fEf6811B23C0379c015221E1001F4cB439'],
+    11155111:['0x89DeDB0F927A4eC8bd2BCf4E89DFaF42aFB45f09']
+}
+
+const XCIV_CONTRACT = {
+    1: {
+        3: '0xd7e9709d152B9eF7D7BE07C5954c51386481CfEC',
+        4: '0xb31D418Ff89881D2e99bf67d9CAD45AC416df471'
+    },
+    5: {
+        3: '0x6723729Fa9c2A1a3E417b69D5B0B001DA62d6a63',
+        4: '0x6723729Fa9c2A1a3E417b69D5B0B001DA62d6a63'
+    },
+    11155111:{
+        3: '0xFC26fbBbA66A462cD1B2e713C47626d4622Ef1bd',
+        4: '0xFC26fbBbA66A462cD1B2e713C47626d4622Ef1bd',
+    }
+}
+
+export {
+    GUARANTEE_CONTRACT,
+    CIVINVEST_TOKEN,
+    VAULT_CONTRACT,
+    XCIV_CONTRACT,
+    VAULT_GETTER_CONTRACT
+}

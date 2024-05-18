@@ -1,0 +1,68 @@
+@import url('https://fonts.cdnfonts.com/css/br-firma?styles=81215,81219,81209,81211,81213,81217,81207,81205');
+
+.header {
+    color: #fff;
+    background: #1B2132;
+    // width: 1328px;
+    width: 93.4%;
+    height: 58px;
+    margin: 2em auto;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 12px;
+    padding: 0 13px 0 7px;
+
+    ul {
+        li {
+            transition: 0.3s;
+        }
+
+    }
+    &.stickyHeader {
+        height: 78px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        border: #3d1b48 1px solid;
+    }
+
+    &__logo {
+        display: inline-flex;
+        height: 52px;
+        margin-right: 5px;
+        padding: 10px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        border-radius: 12px;
+        border: 0.4px solid #272E40;
+        position: relative;
+        width: 40px;
+        height: 40px;
+    }
+
+    &__light_bg {
+        background: #272E40;
+        padding: 10px 15px;
+    }
+
+    &__divider {
+        width: 1px;
+        background-color: #fff;
+        height: 26px;
+        margin: 0 16px;
+    }
+
+    .desktop {
+
+        @media only screen and (min-width: 769px) and (max-width: 1300px) {
+            display: none;
+        }
+
+        @media only screen and (max-width: 768px) {}
+    }
+
+}

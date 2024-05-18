@@ -1,0 +1,344 @@
+@import url('https://fonts.cdnfonts.com/css/br-firma?styles=81215,81219,81209,81211,81213,81217,81207,81205');
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0px 0px 18px 18px;
+    background: #1B1F2F;
+    backdrop-filter: blur(76px);
+
+    h1 {
+        font-size: 17px
+    }
+
+    p {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.68);
+    }
+
+    &_close_icon {
+        width: toRem(30);
+        height: toRem(30);
+        transform: rotate(180deg);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    &_mobile_header {
+        border-radius: 0px 0px 14px 14px;
+    }
+
+    @media only screen and (min-width: 769px) and (max-width: 1300px) {
+        h1 {
+            font-size: 18px
+        }
+
+        p {
+            font-size: 12px;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        border-radius: 14px 14px 0px 0px;
+
+        h1 {
+            font-size: 14px
+        }
+
+        p {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.68);
+        }
+    }
+}
+
+.pool_detail {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 10;
+
+    &__flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px dashed #305A70;
+
+        h2 {
+            font-size: 16px;
+            color: #929292;
+        }
+
+        h1 {
+            font-size: 18px;
+            letter-spacing: -0.36px;
+        }
+
+        @media only screen and (min-width: 769px) and (max-width: 1300px) {
+            h1 {
+                font-size: 16px
+            }
+
+            h2 {
+                font-size: 14px;
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            h1 {
+                font-size: 14px
+            }
+
+            h2 {
+                font-size: 12px;
+            }
+
+            button {
+                font-size: 10px
+            }
+        }
+    }
+
+    &__epoch {
+        background-color: #0D101A;
+        background-image: url("/assets/svgs/backgrounds/line-bg.svg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 8px;
+        color: white;
+        padding: 20px 10px;
+
+        button {
+            font-size: 14px;
+            padding: 10px 20px;
+        }
+
+        h2 {
+            font-size: 14px;
+            color: #A2A8BA;
+        }
+
+        .line {
+            height: 2px;
+            background: #D57FF2;
+        }
+
+        &__banner {
+            display: flex;
+            width: 149px;
+            height: 46px;
+            padding: 10px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            border-radius: 32px;
+            border: 1px solid #D57EF2;
+            background: linear-gradient(180deg, #191F32 0%, #2F3A5E 100%);
+            font-size: 16px;
+        }
+
+        &__progress_bar {
+            width: 100%;
+            background-color: #121622;
+            height: 57px;
+            text-align: center;
+            position: relative;
+            margin-top: 2em;
+
+            @media only screen and (max-width: 768px) {
+                height: 47px;
+            }
+        }
+
+        &__inprogress {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            border-radius: 3px;
+            background: rgba(78, 85, 107, 0.32);
+            backdrop-filter: blur(2px);
+            padding: 20px;
+            margin-bottom: 3em;
+
+            .text {
+                width: 40%;
+            }
+
+            h1 {
+                font-size: 16px;
+                font-style: normal;
+                letter-spacing: -0.96px;
+            }
+
+            p {
+                font-size: 12px;
+                color: #9B9AAC;
+            }
+
+            @media only screen and (min-width: 769px) and (max-width: 1300px) {
+                display: block;
+
+                .text {
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+            }
+
+            @media only screen and (max-width: 768px) {
+                display: block;
+
+                .text {
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+
+                button {
+                    font-size: 12px;
+                    padding: 15px;
+                }
+
+                padding: 10px;
+            }
+        }
+
+        @media only screen and (min-width: 769px) and (max-width: 1300px) {
+            h1 {
+                font-size: 18px
+            }
+
+            p {
+                font-size: 12px;
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+
+            &__banner {
+                display: flex;
+                width: 83px;
+                height: 32px;
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 12px
+            }
+
+            h2 {
+                font-size: 12px;
+            }
+
+            p {
+                font-size: 10px;
+            }
+
+            button {
+                font-size: 13px;
+            }
+        }
+    }
+
+    @media only screen and (min-width: 769px) and (max-width: 1024px) {
+        display: grid;
+        grid-template-columns: auto
+    }
+
+    @media only screen and (max-width: 768px) {
+        grid-template-columns: auto
+    }
+}
+
+.pool_detail_performance {
+
+    margin: 10px 0;
+    display: grid;
+    grid-template-columns: 4fr 8fr;
+    grid-gap: 10px;
+
+    h1 {
+        color: #FFF;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 600;
+        letter-spacing: -0.96px;
+    }
+
+    p {
+        color: #A2A8BA;
+        font-style: normal;
+        font-weight: 400;
+        letter-spacing: -0.42px;
+    }
+
+    &__assets {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+
+
+        &_asset {
+            border-radius: 8px;
+            padding: 13px;
+            background: #1C2131;
+            height: 267px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            max-width: 200px;
+
+            button {
+                padding: 8px 7px;
+                margin-top: 1em;
+            }
+
+            h1 {
+                line-height: 30px;
+                letter-spacing: -0.72px;
+                overflow: hidden;
+                white-space: wrap;
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            @media only screen and (min-width: 769px) and (max-width: 1300px) {
+                h1 {
+                    font-size: 20px;
+                }
+
+                p {
+                    font-size: 10px;
+                }
+
+                button {
+                    font-size: 13px;
+                }
+            }
+
+            @media only screen and (max-width: 768px) {
+                grid-template-columns: auto h1 {
+                    font-size: 10px;
+                }
+
+                p {
+                    font-size: 12px;
+                }
+
+                button {
+                    font-size: 13px;
+                }
+            }
+        }
+
+
+    }
+
+    @media only screen and (min-width: 769px) and (max-width: 1150px) {
+        display: grid;
+        grid-template-columns: auto
+    }
+
+    @media only screen and (max-width: 768px) {
+        grid-template-columns: auto
+    }
+}

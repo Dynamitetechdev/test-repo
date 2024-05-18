@@ -1,0 +1,19 @@
+.chart{
+    color: white;
+    font-size: 12px;
+    .btn{
+        border-radius: 6px;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 102%;
+        letter-spacing: -1.36px;
+        padding: 5px 17px;
+        transition: background-color 0.2s;
+
+        &.active{
+            background: #272E40;
+            border: 1px solid #31394C;
+        }
+    }
+}

@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.cdnfonts.com/css/br-firma?styles=81215,81219,81209,81211,81213,81217,81207,81205');
+
+@font-face {
+  font-family: 'BR Firma';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/BR-Firma-Regular.woff2') format('woff2');
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  font-family: 'BR Firma', sans-serif;
+  background: #12161F;
+  background-image: url("/assets/svgs/backgrounds/main-bg-gradient.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: fit-content;
+  overflow-y: scroll;
+  /* Enable scrolling */
+}
+
+body::-webkit-scrollbar {
+  width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #12161F;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 6px;
+}
+
+.pool-details-container {
+  padding: 15px;
+  background-color: #121622;
+}
+
+.primary_button {
+  border-radius: 4px;
+  background: linear-gradient(98deg, #E083FF 3.48%, #68B5E0 103.22%);
+  font-size: 14px;
+}
+.primary_button:hover {
+  background: linear-gradient(98deg, #9c43ba 3.48%, #317ca8 103.22%);
+}
+/* Green Button */
+.green_button {
+  border-radius: 4px;
+  background: linear-gradient(98deg, #2fa72f 3.48%, #008000 103.22%);
+}
+.green_button:hover {
+    background: linear-gradient(98deg, #2bc12b 3.48%, #08ab08 103.22%);
+}
+
+/* Red Button */
+.red_button {
+  border-radius: 4px;
+background: linear-gradient(98deg, #d45656 3.48%, #FF0000 103.22%);
+}
+.red_button:hover {
+background: linear-gradient(98deg, #d96565 3.48%, #ee1111 103.22%);
+}
+
+
+.gray_btn {
+  border-radius: 6px;
+  font-size: 16px;
+  border: 1px solid #31394C;
+  background: #272E40;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 102%;
+  letter-spacing: -0.7px;
+}
+.civ_token_bg {
+  border-radius: 8.553px;
+  border: 3px solid #0D101A;
+  background: linear-gradient(180deg, #E5ECFF 0%, #FFF 100%);
+  display: flex;
+  width: 42.261px;
+  height: 42.261px;
+  padding: 4px 3.261px 2.261px 3px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.lg-border {
+  margin-right: -9px;
+  z-index: 99;
+}
