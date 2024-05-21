@@ -11,40 +11,27 @@ import tokenPricesFn from "../utils/dataService/tokenPrices";
 import { formatFigures } from "../utils/web3FiguresHelpers";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { chainIdToName } from "../constants/chainIdToName";
+import { switchChainFunc } from "./comp/switchChain";
 const AppHeader = () => {
     const { open, close } = useWeb3Modal()
+    const [chainId, setChainId] = useState(null);
     const { address: walletAddr, status } = useAccount()
     const { chain } = useAccount()
     const { switchChain } = useSwitchChain()
-    const { setCurrentWalletAddress, currentWalletAddress, setTokenPrices,setMessage } = UseStore()
+    const { setCurrentWalletAddress, currentWalletAddress, setTokenPrices, setMessage,setChain } = UseStore()
     const [tokenPrices, setTokenPrice] = useState({
         CIVprice: 0,
         STONEprice: 0
     })
     // console.log("token", tokenPrices)
-    const allChains = [
-        {
-            name: "ethereum",
-            chainId: '0x1',
-            tokenLogo: ETHicon
-        },
-        {
-            name: "goerli",
-            chainId: '0x5',
-            tokenLogo: ETHicon
-        },
-        {
-            name: "sepolia",
-            chainId: '0x1115511',
-            tokenLogo: ETHicon
-        }
-    ]
     const [selectChainPopup, setselectChainPopup] = useState(false)
     const chainSelectionRef = useRef(null)
 
     const [selectedChain, setSelectedChain] = useState({
         logo: ETHicon,
-        chain: "ethereum"
+        chain: "ethereum",
+        chainId: 1
     })
 
 
@@ -98,18 +85,50 @@ const AppHeader = () => {
     }, []);
 
     useEffect(() => {
+        const getChainId = async () => {
+            if (window.ethereum) {
+                try {
+                    const chainIdHex = await window.ethereum.request({ method: 'eth_chainId' });
+                    const chainId = parseInt(chainIdHex, 16)
+                    setChainId(chainId);  // Convert hex chainId to decimal
+                } catch (error) {
+                    console.error("Error fetching chain ID: ", error);
+                }
+            } else {
+                console.error("MetaMask is not installed");
+            }
+        };
 
-        if (chain?.id !== 1 && chain?.id !== 5 && chain?.id !== 11155111 && switchChain) {
+        getChainId();
+        const handleChainChanged = (chainId) => {
+            setChainId(parseInt(chainId, 16));
+        };
+
+        if (window.ethereum) {
+            window.ethereum.on('chainChanged', handleChainChanged);
+        }
+        return () => {
+            if (window.ethereum) {
+                window.ethereum.removeListener('chainChanged', handleChainChanged);
+            }
+        };
+    }, []);
+    useEffect(() => {
+        setSelectedChain({
+            logo: ETHicon,
+            chain: chainIdToName[chainId],
+            chainId
+        })
+    }, [chainId])
+
+    useEffect(() => {
+        const supportedChains = [1, 5, 11155111]
+
+        if (!supportedChains.includes(chainId)) {
             setMessage('UNSUPPORTED CHAIN, SWITCH BACK TO ETHEREUM')
-            switchChain(1)
+            switchChainFunc(1)
         }
-        if (chain) {
-            setSelectedChain({
-                logo: ETHicon,
-                chain: chain?.name
-            })
-        }
-    }, [chain?.id]);
+    }, [chainId]);
 
     const [isSticky, setIsSticky] = useState(false);
 
@@ -175,7 +194,7 @@ const AppHeader = () => {
                 selectChainPopup &&
                 <SwitchChain allChains={allChains} selectedChain={selectedChain} setselectChainPopup={setselectChainPopup} setSelectedChain={setSelectedChain} />
             } */}
-            </div>
+        </div>
 
     );
 }
