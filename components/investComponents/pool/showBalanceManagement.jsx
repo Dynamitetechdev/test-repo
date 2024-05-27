@@ -12,7 +12,7 @@ import UsePoolStore from "@/store/UsePoolStore";
 const ShowBalanceManagement = ({ availableBalance, poolDataFromSocket, apiData, poolId, currentWalletAddress }) => {
      const { open, close } = useWeb3Modal()
     const { address, chain } = useAccount()
-    const {tokenDecimals, tokenPrices} = UseStore()
+    const {tokenDecimals, tokenPrices, arbNetwork} = UseStore()
     const {investableUsdt} = UsePoolStore()
     const buyGuaranteeLink = "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x73A83269b9bbAFC427E76Be0A2C1a1db2a26f4C2&chain=mainnet"
     const handleAddToken = async (token) => {
@@ -37,14 +37,16 @@ const ShowBalanceManagement = ({ availableBalance, poolDataFromSocket, apiData, 
                             <h1>{availableBalance.usdt ? formatFigures(availableBalance.usdt, 2) : '0.00'} USDT <small className="text-dimGray">(${availableBalance.usdt ? formatFigures(availableBalance.usdt, 2) : '0.00'})</small></h1>
                         </div>
                     </div>
-                    <div className={styles.pool_detail__flex}>
+                    {
+                        !arbNetwork && <div className={styles.pool_detail__flex}>
                         <h2>Guarantee Balance</h2>
                         <div className="flex items-center">
                             <Link href={buyGuaranteeLink} target="_blank">
                                 <button className="text-[12px] px-[8px] py-[6px] primary_button mr-1 md:mr-4 whitespace-nowrap">Buy Guarantee</button></Link>
-                            <h1>{availableBalance.guarantee ? formatFigures(availableBalance.guarantee, 0) : '0'} 0NE <small className="text-dimGray">(${availableBalance.guarantee ? formatFigures((Number(availableBalance.guarantee) * Number(tokenPrices?.STONEprice)) * 100, 2) : '0'})</small></h1>
+                            <h1>{availableBalance.guarantee ? formatFigures(availableBalance.guarantee, 0) : '0'} 0NE <small className="text-dimGray">(${availableBalance.guarantee ? formatFigures((Number(availableBalance.guarantee) * Number(tokenPrices?.STONEprice)), 2) : '0'})</small></h1>
                         </div>
                     </div>
+                    }
                     <div className={styles.pool_detail__flex}>
                         <h2>Investable USDT</h2>
                         <h1>{ availableBalance.usdt ? formatFigures(investableUsdt,2): '0.00'} USDT <small className="text-dimGray">(${ availableBalance.usdt ? formatFigures(investableUsdt, 2): '0.00'})</small></h1>
@@ -83,11 +85,13 @@ const ShowBalanceManagement = ({ availableBalance, poolDataFromSocket, apiData, 
             </ul>
 
             <div className='flex items-center justify-between pt-4'>
-                <h1 className="text-[12px]">Add STONE & XCIV to your wallet</h1>
+                <h1 className="text-[12px]">Add STONE {!arbNetwork ? `& XCIV`: ''} to your wallet</h1>
                 <div className="flex items-center">
                     <div className="civ_token flex relative" >
                         <Image src={StoneIcon} width={36} height={36} alt="token-img" className="civ_token_bg cursor-pointer" onClick={() => handleAddToken('stone')} />
-                        <Image src={CivIcon} width={36} height={36} alt="token-img" className="civ_token_bg cursor-pointer" onClick={() => handleAddToken('xciv')} />
+                        {
+                            !arbNetwork && <Image src={CivIcon} width={36} height={36} alt="token-img" className="civ_token_bg cursor-pointer" onClick={() => handleAddToken('xciv')} />
+                        }
                     </div>
                     <div className="to max-sm:z-[99]">
                         <Image src={ChervonRight} width={24} height={24} alt="to" className="bg-[#7AAEE5] rounded" />

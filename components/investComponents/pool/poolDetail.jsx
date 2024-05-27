@@ -101,6 +101,8 @@ const PoolDetail = ({ poolDataFromSocket, data: apiPoolData, poolId, fetchData, 
             setInvestableUsdt(minNumber(balances?.tokenBalance, balances?.civAssetAllowance))
         }
     }, [balances, chain, currentWalletAddress, slippageApprove])
+
+    // console.log({balances: availableBalance})
     const chartPercentage = () => {
         const num = poolDataFromSocket[0]?.fullHistory.length > 40 ? ((Number(poolDataFromSocket[0]?.fullHistory[poolDataFromSocket[0]?.fullHistory.length - 1][1]) - Number(poolDataFromSocket[0]?.fullHistory[poolDataFromSocket[0]?.fullHistory.length - 48][1])) / Number(poolDataFromSocket[0]?.fullHistory[poolDataFromSocket[0]?.fullHistory.length - 48][1])) * 100 : 0.00
         if(num > 0) {

@@ -12,7 +12,7 @@ import { vaultABI } from "@/contractABIs"
 import UseStore from "@/store/UseStore"
 
 const ClaimManagement = ({ poolId, fetchData, web3LoadingStates, setWeb3LoadingStates, chain, apiData, availableBalance }) => {
-    const { setTransactionType, setMessage, currentWalletAddress, tokenDecimals,transactionsStatus,setTransactionsStatus } = UseStore()
+    const { setTransactionType, setMessage, currentWalletAddress, tokenDecimals,transactionsStatus,setTransactionsStatus,arbNetwork } = UseStore()
     const { data: dataClaimAssetsHash, writeContractAsync: writeClaimAseets } = useWriteContract()
 
     const { data: dataClaimGuaranteeHash, writeContractAsync: writeClaimGuarantee } = useWriteContract()
@@ -111,7 +111,8 @@ const ClaimManagement = ({ poolId, fetchData, web3LoadingStates, setWeb3LoadingS
                         </button>
                     </div>
                 </div>
-                <div className={styles.pool_detail_performance__assets_asset}>
+                {
+                    !arbNetwork &&  <div className={styles.pool_detail_performance__assets_asset}>
                     <Image src={StoneIcon} width={36} height={36} alt="token-img" />
 
                     <div className="">
@@ -122,6 +123,7 @@ const ClaimManagement = ({ poolId, fetchData, web3LoadingStates, setWeb3LoadingS
                         </button>
                     </div>
                 </div>
+                }
             </div>
         </div> 
      );

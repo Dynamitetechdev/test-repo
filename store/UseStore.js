@@ -13,6 +13,8 @@ const UseStore = create((set) => ({
     highestNetAPY: 0,
     transactionsStatus: {},
     tokenDecimals: {},
+    arbNetwork: false,
+    setArbNetwork: (status) => set(() => ({arbNetwork: status})),
     setChain: (chain) => set(() => ({chain})),
     setMessage: (message) => set(() => ({ message: message })),
     setCurrentWalletAddress: (address) => set(() => ({ currentWalletAddress: address })),

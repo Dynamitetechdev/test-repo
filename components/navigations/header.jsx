@@ -19,7 +19,7 @@ const AppHeader = () => {
     const { address: walletAddr, status } = useAccount()
     const { chain } = useAccount()
     const { switchChain } = useSwitchChain()
-    const { setCurrentWalletAddress, currentWalletAddress, setTokenPrices, setMessage,setChain } = UseStore()
+    const { setCurrentWalletAddress, currentWalletAddress, setTokenPrices, setMessage,setChain,setArbNetwork, arbNetwork } = UseStore()
     const [tokenPrices, setTokenPrice] = useState({
         CIVprice: 0,
         STONEprice: 0
@@ -114,17 +114,15 @@ const AppHeader = () => {
         };
     }, []);
     useEffect(() => {
+        const supportedChains = [1, 5, 11155111, 42161]
+        let chain = chainId ? chainId : 1
         setSelectedChain({
             logo: ETHicon,
             chain: chainIdToName[chainId],
             chainId
         })
-    }, [chainId])
-
-    useEffect(() => {
-        const supportedChains = [1, 5, 11155111]
-
-        if (!supportedChains.includes(chainId)) {
+        setArbNetwork(chain === 42161 ? true : false)
+        if (!supportedChains.includes(chain)) {
             setMessage('UNSUPPORTED CHAIN, SWITCH BACK TO ETHEREUM')
             switchChainFunc(1)
         }

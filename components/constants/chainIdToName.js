@@ -6,7 +6,7 @@ export const chainIdToName = {
     42: 'Kovan Testnet',
     137: 'Polygon Mainnet',
     80001: 'Mumbai Testnet',
-    42161: 'Arbitrum One',
+    42161: 'Arbitrum',
     421611: 'Arbitrum Rinkeby',
     56: 'Binance Smart Chain Mainnet',
     97: 'Binance Smart Chain Testnet',

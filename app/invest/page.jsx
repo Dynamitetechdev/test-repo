@@ -19,7 +19,7 @@ const Invest = () => {
     const { open, close } = useWeb3Modal()
     const socket = useSocket()
 
-    const [togglePool, setTogglePool] = useState(strategies.map((pool) => false))
+    const [togglePool, setTogglePool] = useState(strategies[chain ? chain.id : 1].map((pool) => false))
 
     const toggleStrategy = (state, poolIndex) => {
         let updatedPool = [...togglePool]
@@ -40,11 +40,11 @@ const Invest = () => {
     const results = {};
     const fetchAllData = async () => {
 
-        for (const strategy of strategies) {
+        for (const strategy of strategies[chain ? chain.id : 1]) {
           const poolId = strategy.poolId;
 
           const {data, isLoading} = await fetchData(poolId);
-            console.log("after deposit",{poolId,isLoading, data})
+            // console.log("after deposit",{poolId,isLoading, data})
             setPoolApiData((prevState) => ({
                 ...prevState,
                 [poolId]: {
@@ -61,7 +61,7 @@ const Invest = () => {
 
       useEffect(() => {
         if (Object.values(transactionsStatus).some(status => status === true)) {
-            console.log({transactionsStatus})
+            // console.log({transactionsStatus})
             fetchAllData()
         }
       }, [transactionsStatus])
@@ -80,7 +80,7 @@ const Invest = () => {
 
             <div className="bg-poolMobile max-sm:p-2">
                 {
-                    strategies.map((pool, poolIndex) => (
+                    strategies[chain ? chain.id : 1].map((pool, poolIndex) => (
                         <div className={`${poolIndex != 0 && "border-t border-dashed border-[#305A70]"}`} key={`strategy---${poolIndex}`}>
                             <MainPool togglePool={togglePool[poolIndex]}
                                 setTogglePool={(state) => {

@@ -21,7 +21,7 @@ import { trimStringNumberToDecimals } from "../utils/services/NumberServices";
 import UsePoolStore from "@/store/UsePoolStore";
 const Modal = ({ type, onClose, availableBalance, inputAmount, setInputAmount, poolId, handleDeposit, setWeb3LoadingStates, fetchData, web3LoadingStates, handleApprove, guaranteeAllowance }) => {
     const { address, chain } = useAccount()
-    const { setGuaranteeFee, tokenPrices, setMessage, transactionsStatus, setTransactionsStatus } = UseStore()
+    const { setGuaranteeFee, tokenPrices, setMessage, transactionsStatus, setTransactionsStatus, arbNetwork } = UseStore()
     const {investableUsdt} = UsePoolStore()
     const percentage = [10, 25, 35, 50, 75, 100]
     const guaranteeFee = useGuaranteeFee(chain, poolId, inputAmount?.depositAmount)
@@ -104,6 +104,7 @@ const Modal = ({ type, onClose, availableBalance, inputAmount, setInputAmount, p
     }
 
     const disableDepositBtn = () => {
+        if(arbNetwork) return true
         if (slippages["10%"] || slippages["30%"] || slippages["5%"]) {
             return true
         } else {
@@ -210,7 +211,7 @@ const Modal = ({ type, onClose, availableBalance, inputAmount, setInputAmount, p
     }, [sendApprovalMsg])
 
     useEffect(() => {
-        if (sendApproval) {
+        if (!arbNetwork && sendApproval) {
             handleSlippageApprove()
         }
     }, [sendApproval])
@@ -338,16 +339,18 @@ const Modal = ({ type, onClose, availableBalance, inputAmount, setInputAmount, p
                                             </ul>
                                         </div>
 
-                                        <div className="mt-3 mb-5 text-sm">
-                                            {/* <p>Current Depositing Guarantee: {(Number(depositAmount))}</p>*/}
-                                            {/* <p>New + Plus slippage Depositing Guarantee: {(Number(newGuaranteeFee))}/ {guaranteeFee}</p>  */}
-                                            {/* <p>Guarantee Allowance: {formatFigures(guaranteeAllowance, 2)}</p> */}
-                                            <p className="text-dimGray border-b border-dashed border-[#305A70] pb-2 ">Guarantee required: <span className="text-white text-[15px]">{!inputAmount.depositAmount ? "0.00" : formatFigures(guaranteeFee, 2)} 0NE</span></p>
-                                            <p className="text-dimGray pt-2 ">Investable guarantee: <span className="text-sharpGreen text-[15px]"> {formatFigures(investableGua, 2)} 0NE</span></p>
-                                            {/* <p>{hasEnoughGuaranteeFee() ? "Enough": "Not Enough"}</p> */}
-                                        </div>
-
-                                        <div
+                                       {
+                                        !arbNetwork && <div className="mt-3 mb-5 text-sm">
+                                        {/* <p>Current Depositing Guarantee: {(Number(depositAmount))}</p>*/}
+                                        {/* <p>New + Plus slippage Depositing Guarantee: {(Number(newGuaranteeFee))}/ {guaranteeFee}</p>  */}
+                                        {/* <p>Guarantee Allowance: {formatFigures(guaranteeAllowance, 2)}</p> */}
+                                        <p className="text-dimGray border-b border-dashed border-[#305A70] pb-2 ">Guarantee required: <span className="text-white text-[15px]">{!inputAmount.depositAmount ? "0.00" : formatFigures(guaranteeFee, 2)} 0NE</span></p>
+                                        <p className="text-dimGray pt-2 ">Investable guarantee: <span className="text-sharpGreen text-[15px]"> {formatFigures(investableGua, 2)} 0NE</span></p>
+                                        {/* <p>{hasEnoughGuaranteeFee() ? "Enough": "Not Enough"}</p> */}
+                                    </div>
+                                       } 
+                                       {
+                                            !arbNetwork &&  <div
                                             className="mb-3 bg-primarybg py-5 px-3 rounded-lg" >
                                             <p className="flex items-center gap-2 text-sm" id="mainslippage">Guarantee slippage:</p>
                                             <div className="flex items-center">
@@ -385,8 +388,12 @@ const Modal = ({ type, onClose, availableBalance, inputAmount, setInputAmount, p
                                             </div>
                                             {/* <p className="text-[#A2A8BA] text-sm">{txStatus}</p> */}
                                         </div>
-                                        <Link href={"https://app.uniswap.org/swap?inputCurrency=ETH&outputCurrency=0x73A83269b9bbAFC427E76Be0A2C1a1db2a26f4C2&chain=mainnet"} target="_blank" className="text-sm md:w-8/12 underline cursor-pointer">Buy More 0ne (STONE) on Uniswap</Link>
+                                       }
+                                       
+                                       <div className={arbNetwork &&`mt-10`}>
+                                       <Link href={"https://app.uniswap.org/swap?inputCurrency=ETH&outputCurrency=0x73A83269b9bbAFC427E76Be0A2C1a1db2a26f4C2&chain=mainnet"} target="_blank" className="text-sm md:w-8/12 underline cursor-pointer">Buy More 0ne (STONE) on Uniswap</Link>
                                         <hr className="mb-8 mt-5 h-[1px] border-t-0 bg-borderColor opacity-100 dark:opacity-50" />
+                                        </div> 
 
                                     </div>
 

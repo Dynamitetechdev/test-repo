@@ -51,25 +51,25 @@ const LoadBalances = (poolId) => {
     // });
 
 
-
+    const contracts =  [
+        {
+            ..._xCivContract,
+            functionName: 'allowance',
+            args: [address, VAULT_CONTRACT[chain?.id] ? VAULT_CONTRACT[chain?.id][0] : null],
+        },
+        chain?.id != 42161 && {
+            ..._guaranteeContract,
+            functionName: 'allowance',
+            args: [address, VAULT_CONTRACT[chain?.id] ? VAULT_CONTRACT[chain?.id][0] : null],
+        },
+        {
+            ..._civAssetContract,
+            functionName: 'allowance',
+            args: [address, VAULT_CONTRACT[chain?.id] ? VAULT_CONTRACT[chain?.id][0] : null],
+        },
+    ].filter(Boolean)
     const { data: allowances, isRefetching, isLoading, isSuccess, refetch, isFetched } = useReadContracts({
-        contracts: [
-            {
-                ..._xCivContract,
-                functionName: 'allowance',
-                args: [address, VAULT_CONTRACT[chain?.id] ? VAULT_CONTRACT[chain?.id][0] : null],
-            },
-            {
-                ..._guaranteeContract,
-                functionName: 'allowance',
-                args: [address, VAULT_CONTRACT[chain?.id] ? VAULT_CONTRACT[chain?.id][0] : null],
-            },
-            {
-                ..._civAssetContract,
-                functionName: 'allowance',
-                args: [address, VAULT_CONTRACT[chain?.id] ? VAULT_CONTRACT[chain?.id][0] : null],
-            },
-        ],
+        contracts
     })
     const memoizedBalances = useMemo(() => {
         if (!allowances) {
@@ -90,13 +90,12 @@ const LoadBalances = (poolId) => {
             : "0" ,
             XCIVBalance: XCIVBalance ? ethers.formatUnits(XCIVBalance, 18)
             : "0" ,
-            guaranteeAllowance:
-                allowances && allowances[1].status === "success"
-                    ? ethers.formatUnits(allowances[1].result, guaranteeBalance && 18)
-                    : "0",
+            guaranteeAllowance: chain?.id == 42161 ? '0': allowances && allowances[1].status === "success"
+            ? ethers.formatUnits(allowances[1].result, guaranteeBalance && 18)
+            : "0",
             civAssetAllowance:
-                allowances && allowances[2].status === "success"
-                    ? ethers.formatUnits(allowances[2].result, tokenBalance && 6)
+                allowances && allowances[chain?.id == 42161 ? 1: 2].status === "success"
+                    ? ethers.formatUnits(allowances[chain?.id == 42161 ? 1: 2].result, tokenBalance && 6)
                     : "0",
             xCivAllowance:
                 allowances && allowances[0].status === "success"
@@ -104,7 +103,7 @@ const LoadBalances = (poolId) => {
                     : "0",
         };
     }, [allowances, guaranteeBalance, tokenBalance, XCIVBalance, isRefetching, isLoading, isSuccess]);
-    // console.log({memoizedBalances})
+    // console.log({memoizedBalances, chainId: chain?.id, poolId, tokenBalance,address: CIVINVEST_TOKEN[chain?.id] ? CIVINVEST_TOKEN[chain?.id][0] : null})
     return { memoizedBalances, refetch, isFetched };
 }
 
