@@ -44,7 +44,7 @@ export const strategies = {
             tokenLogo: UNISWAPicon,
             poolId: 0,
             oneLogo: true,
-            allowDeposit: false
+            allowDeposit: true
         },
         {
             id: 1,
