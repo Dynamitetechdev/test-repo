@@ -2,7 +2,7 @@
 import Image from "next/image";
 import styles from "./styles.module.scss"
 import { useEffect, useRef, useState } from "react";
-import { ChervonDown, Lighting, POLYGONicon, ETHicon, StoneIcon, CivIcon } from "../assets";
+import { ChervonDown, Lighting, POLYGONicon, ETHicon, StoneIcon, CivIcon, ARBicon } from "../assets";
 import { useWeb3Modal } from "@web3modal/wagmi/react"
 import { useAccount, useSwitchChain } from "wagmi";
 import SwitchChain from "./switchChain";
@@ -113,11 +113,15 @@ const AppHeader = () => {
             }
         };
     }, []);
+    const chainLogo = {
+        1: ETHicon,
+        42161: ARBicon
+    }
     useEffect(() => {
         const supportedChains = [1, 5, 11155111, 42161]
         let chain = chainId ? chainId : 1
         setSelectedChain({
-            logo: ETHicon,
+            logo: chainLogo[chainId],
             chain: chainIdToName[chainId],
             chainId
         })
@@ -163,6 +167,8 @@ const AppHeader = () => {
                         </Link>
                         <div className="flex items-center max-md:hidden">
                             <h2 >CIV ${tokenPrices.CIVprice.toFixed(3)}</h2>
+                            {!arbNetwork &&
+                            <>
                             <div className={styles.header__divider}></div>
 
                             <div className="flex items-center gap-1">
@@ -172,6 +178,8 @@ const AppHeader = () => {
                                 {/* <h2>0NE ${Math.max(Number(tokenPrices.STONEprice).toFixed(0), 1)} per Bn</h2> */}
                                 <h2>0NE ${tokenPrices.STONEprice.toString().slice(0, 5)} per Bn</h2>
                             </div>
+                            </>
+                             }
                         </div>
                     </div>
                     {

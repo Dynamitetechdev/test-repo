@@ -391,7 +391,9 @@ const Modal = ({ type, onClose, availableBalance, inputAmount, setInputAmount, p
                                        }
                                        
                                        <div className={arbNetwork &&`mt-10`}>
+                                        {!arbNetwork &&
                                        <Link href={"https://app.uniswap.org/swap?inputCurrency=ETH&outputCurrency=0x73A83269b9bbAFC427E76Be0A2C1a1db2a26f4C2&chain=mainnet"} target="_blank" className="text-sm md:w-8/12 underline cursor-pointer">Buy More 0ne (STONE) on Uniswap</Link>
+                                        }
                                         <hr className="mb-8 mt-5 h-[1px] border-t-0 bg-borderColor opacity-100 dark:opacity-50" />
                                         </div> 
 

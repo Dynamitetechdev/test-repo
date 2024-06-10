@@ -84,8 +84,9 @@ const ShowBalanceManagement = ({ availableBalance, poolDataFromSocket, apiData, 
                 </li>
             </ul>
 
+            {!arbNetwork &&
             <div className='flex items-center justify-between pt-4'>
-                <h1 className="text-[12px]">Add STONE {!arbNetwork ? `& XCIV`: ''} to your wallet</h1>
+                <h1 className="text-[12px]">Add STONE & XCIV to your wallet</h1>
                 <div className="flex items-center">
                     <div className="civ_token flex relative" >
                         <Image src={StoneIcon} width={36} height={36} alt="token-img" className="civ_token_bg cursor-pointer" onClick={() => handleAddToken('stone')} />
@@ -100,10 +101,10 @@ const ShowBalanceManagement = ({ availableBalance, poolDataFromSocket, apiData, 
                         <Image src={MetaMaskIcon} width={36} height={36} alt="token-img" className="civ_token_bg" />
                     </div>
                 </div>
-            </div>
+            </div>}
 
             <div className="mt-5 text-[12px]">
-                <p className="mb-1">The strategy is built by leveraging liquidity pools on uniswap v2 across the major pairs available. The pools it goes between are as follows:</p>
+            {!arbNetwork ? <p className="mb-1">The strategy is built by leveraging liquidity pools on uniswap v2 across the major pairs available. The pools it goes between are as follows:</p> : <p className="mb-1 mt-10">The strategy is built by leveraging liquidity pools on uniswap v2 and GMX across the major pairs available. The pools it goes between are as follows:</p>}
 
                 <div className="capitalize">
                     <ul className="flex flex-wrap gap-2">
