@@ -17,7 +17,8 @@ const metadata = {
 
 // Create wagmiConfig
 export const config = defaultWagmiConfig({
-    chains: [mainnet,sepolia, arbitrum], // required
+    chains: [mainnet,sepolia], // required
+    // chains: [mainnet,sepolia, arbitrum], // required
     projectId, // required
     metadata, // required
     ssr: true,
@@ -31,6 +32,6 @@ export const config = defaultWagmiConfig({
     transports: {
         [mainnet.id]: http('https://eth-mainnet.g.alchemy.com/v2/cnF4veV0S7_dN_y0s3ygYlEE0ox-E_f5'),
         [sepolia.id]: http('https://eth-sepolia.g.alchemy.com/v2/Bzg0RGsBZsLA0r7hnsohUiuXl-8h2NgF'),
-        [arbitrum.id]:http('https://arb-mainnet.g.alchemy.com/v2/5erVWOjM_OIkeIaLUC819AMIfBDXgGan')
+        // [arbitrum.id]:http('https://arb-mainnet.g.alchemy.com/v2/5erVWOjM_OIkeIaLUC819AMIfBDXgGan')
     }
 })

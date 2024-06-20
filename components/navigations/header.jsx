@@ -115,6 +115,7 @@ const AppHeader = () => {
     }, []);
     const chainLogo = {
         1: ETHicon,
+        11155111: ETHicon,
         42161: ARBicon
     }
     useEffect(() => {
