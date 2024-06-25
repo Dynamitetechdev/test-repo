@@ -70,7 +70,7 @@ const PoolHead = ({ togglePool, setTogglePool, poolData, poolDataFromSocket, dat
     }, [poolDataFromSocket])
     const [notConnected, setNotConnected] = useState(null)
     useEffect(() => {
-        if (chain && chain?.id !== 1 && chain?.id !== 5 && chain?.id !== 11155111) {
+        if (chain && chain?.id !== 1 && chain?.id !== 5 && chain?.id !== 11155111 && chain?.id !== 42161) {
             // setIsEthChain(false)
             setTogglePool(false)
             setNotConnected(true)
