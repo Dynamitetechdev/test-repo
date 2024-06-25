@@ -30,7 +30,7 @@ const AppHeader = () => {
 
     const [selectedChain, setSelectedChain] = useState({
         logo: ETHicon,
-        chain: "ethereum",
+        chain: "ethereum mainnet",
         chainId: 1
     })
 
@@ -128,6 +128,11 @@ const AppHeader = () => {
         })
         setArbNetwork(chain === 42161 ? true : false)
         if (!supportedChains.includes(chain)) {
+            setSelectedChain({
+                logo: ETHicon,
+                chain: "ethereum mainnet",
+                chainId: 1
+            })
             setMessage('UNSUPPORTED CHAIN, SWITCH BACK TO ETHEREUM')
             switchChainFunc(1)
         }

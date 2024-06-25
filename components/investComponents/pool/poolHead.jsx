@@ -52,7 +52,7 @@ const PoolHead = ({ togglePool, setTogglePool, poolData, poolDataFromSocket, dat
         //     setMessage('Connect Your Wallet')
         // }
         // setTogglePool(isEthChain && !isLoading && !togglePool)
-        if(notConnected) return false
+        // if(notConnected) return false
         setTogglePool( !isLoading && !togglePool)
 
     }
@@ -117,7 +117,7 @@ const PoolHead = ({ togglePool, setTogglePool, poolData, poolDataFromSocket, dat
                         <h1>{formatFigures(poolSocketData.apy, 2)}%</h1>
                     </div>
                 </div>
-                <motion.div className={`pool_toggle mx-10 cursor-pointer bg-primarybg  p-1 rounded max-sm:hidden ${isLoading || notConnected ? "opacity-50" : "hover:bg-[#E083FF]"}`} onClick={handleTogglePool} initial={false} animate={{ rotate: togglePool ? 180 : 0 }} transition={{ duration: 0.3 }} >
+                <motion.div className={`pool_toggle mx-10 cursor-pointer bg-primarybg  p-1 rounded max-sm:hidden ${isLoading ? "opacity-50" : "hover:bg-[#E083FF]"}`} onClick={handleTogglePool} initial={false} animate={{ rotate: togglePool ? 180 : 0 }} transition={{ duration: 0.3 }} >
                     <Image src={ChervonUp} width={30} height={30} alt="token-img" />
                 </motion.div>
                 {/* <motion.div className={`pool_toggle mx-10 cursor-pointer bg-primarybg  p-1 rounded max-sm:hidden ${!isEthChain || isLoading ? "opacity-50" : "hover:bg-[#E083FF]"}`} onClick={handleTogglePool} initial={false} animate={{ rotate: togglePool ? 180 : 0 }} transition={{ duration: 0.3 }}>
