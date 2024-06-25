@@ -133,7 +133,7 @@ const AppHeader = () => {
                 chain: "ethereum mainnet",
                 chainId: 1
             })
-            setMessage('UNSUPPORTED CHAIN, SWITCH BACK TO ETHEREUM')
+            setMessage('UNSUPPORTED CHAIN, SWITCH BACK TO ETHEREUM 000')
             switchChainFunc(1)
         }
     }, [chainId]);
