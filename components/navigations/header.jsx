@@ -26,6 +26,7 @@ const AppHeader = () => {
     })
     // console.log("token", tokenPrices)
     const [selectChainPopup, setselectChainPopup] = useState(false)
+    const [haveMetaMask, setHaveMetaMask] = useState(null)
     const chainSelectionRef = useRef(null)
 
     const [selectedChain, setSelectedChain] = useState({
@@ -91,10 +92,12 @@ const AppHeader = () => {
                     const chainIdHex = await window.ethereum.request({ method: 'eth_chainId' });
                     const chainId = parseInt(chainIdHex, 16)
                     setChainId(chainId);  // Convert hex chainId to decimal
+                    setHaveMetaMask(true)
                 } catch (error) {
                     console.error("Error fetching chain ID: ", error);
                 }
             } else {
+                setHaveMetaMask(false)
                 console.error("MetaMask is not installed");
             }
         };
@@ -112,7 +115,7 @@ const AppHeader = () => {
                 window.ethereum.removeListener('chainChanged', handleChainChanged);
             }
         };
-    }, []);
+    });
     const chainLogo = {
         1: ETHicon,
         11155111: ETHicon,
@@ -121,18 +124,21 @@ const AppHeader = () => {
     useEffect(() => {
         const supportedChains = [1, 5, 11155111, 42161]
         let chain = chainId ? chainId : 1
-        setSelectedChain({
-            logo: chainLogo[chainId],
-            chain: chainIdToName[chainId],
-            chainId
-        })
-        setArbNetwork(chain === 42161 ? true : false)
-        if (!supportedChains.includes(chain)) {
+        if(haveMetaMask && chain && supportedChains.includes(chain)){
+            setSelectedChain({
+                logo: chainLogo[chainId],
+                chain: chainIdToName[chainId],
+                chainId
+            })
+        } else{
             setSelectedChain({
                 logo: ETHicon,
                 chain: "ethereum mainnet",
                 chainId: 1
             })
+        }
+        setArbNetwork(chain === 42161 ? true : false)
+        if (!supportedChains.includes(chain)) {
             setMessage('UNSUPPORTED CHAIN, SWITCH BACK TO ETHEREUM 000')
             switchChainFunc(1)
         }
