@@ -53,56 +53,64 @@ const PerformanceChart = ({ data }) => {
             case "30d":
                 var oneMonthAgo = new Date();
                 oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
-                return data.filter(data => data[0] >= oneMonthAgo.getTime())
-                break;
-                case "7d":
-                    const currentDate = new Date();
-                    const filteredData = [];
-                    for (let i = 0; i < 7; i++) {
-                      const pastDate = new Date(currentDate.getTime() - (i * 24 * 60 * 60 * 1000));
-                      const matchingData = data.find(item => {
+                return data.filter(data => data[0] >= oneMonthAgo.getTime());
+            case "7d":
+                const currentDate = new Date();
+                const filteredData = [];
+                for (let i = 0; i < 7; i++) {
+                    const pastDate = new Date(currentDate.getTime() - (i * 24 * 60 * 60 * 1000));
+                    const matchingData = data.find(item => {
                         const itemDate = new Date(item[0]);
                         return itemDate.getDate() === pastDate.getDate() &&
-                               itemDate.getMonth() === pastDate.getMonth() &&
-                               itemDate.getFullYear() === pastDate.getFullYear();
-                      });
-                      if (matchingData) {
+                            itemDate.getMonth() === pastDate.getMonth() &&
+                            itemDate.getFullYear() === pastDate.getFullYear();
+                    });
+                    if (matchingData) {
                         filteredData.push(matchingData);
-                      } else {
+                    } else {
                         filteredData.push([pastDate.getTime(), 0]); // Add placeholder with 0 value for missing data points
-                      }
                     }
-                    return filteredData.reverse();
-                    break;
+                }
+                return filteredData.reverse();
             case "1d":
-                var yesterday = new Date()
-                yesterday.setDate(yesterday.getDate() - 1)
-                return data.filter(data => data[0] >= yesterday.getTime())
-                break;
+                var yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                return data.filter(data => data[0] >= yesterday.getTime());
             case "all":
-                return filterDataAll()
-                break;
+                return filterDataAll();
             default:
+                return [];
         }
-    }
+    };
+
     const filterDataAll = () => {
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-
+        const startDate = new Date('2023-03-11'); // Start date of the period
+        const endDate = new Date(); // Current date
+        const totalMonths = (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth());
+        const monthsToShow = 6; // Number of months to display
+        const gap = Math.ceil(totalMonths / monthsToShow);
+    
         const filteredData = [];
-        const monthsSeen = new Set();
-
-        for (const dataItem of data) {
-            const dataDate = new Date(dataItem[0]);
-            const dataMonth = dataDate.getMonth();
-            const dataYear = dataDate.getFullYear();
-
-            if (!monthsSeen.has(dataMonth) && dataYear <= currentYear) {
-                filteredData.push(dataItem);
-                monthsSeen.add(dataMonth);
+        let currentMonthIndex = 0;
+    
+        for (let i = 0; i <= totalMonths; i += gap) {
+            const targetDate = new Date(startDate);
+            targetDate.setMonth(startDate.getMonth() + currentMonthIndex);
+    
+            const matchingData = data.find(dataItem => {
+                const dataDate = new Date(dataItem[0]);
+                return dataDate.getMonth() === targetDate.getMonth() && dataDate.getFullYear() === targetDate.getFullYear();
+            });
+    
+            if (matchingData) {
+                filteredData.push(matchingData);
+            } else {
+                filteredData.push([targetDate.getTime(), 0]); // Add placeholder with 0 value for missing data points
             }
+    
+            currentMonthIndex += gap;
         }
-
+    
         return filteredData;
     };
     const updateChart = () => {
