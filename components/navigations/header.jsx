@@ -161,9 +161,9 @@ const AppHeader = () => {
               <div 
         >
             <div className={`${styles.header} ${styles.header.desktop}`}>
-                <div className="navs flex items-center">
+            <div className="navs flex items-center relative">
                     <div className={styles.header__logo}>
-                        <Image src={"/assets/pngs/civlogo.png"} layout="fill" alt="civ logo" className="w-[50px] h-[50px]" />
+                        <Image src={"/assets/pngs/civlogo.png"} layout="fill" alt="civ logo" className="w-[40px] h-[40px]" />
                     </div>
                     <div className="flex">
                         <h1 className="text-xl font-semibold ml-3 max-sm:hidden">CIVFUND</h1>
